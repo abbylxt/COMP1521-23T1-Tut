@@ -7,6 +7,6 @@ Please cross reference the lecture notes as I may have added things to show thin
 
 Please let me know if you see a mistake in my feedback form or abby.lin@student.unsw.edu.au
 
-Feedback for anonymous feedback: https://forms.gle/ZjAzFvvqneLEVZoq8
+Feedback for anonymous feedback: https://forms.gle/ZjAzFvvqneLEVZoq8 (code for general feedback, potatoes)
 
 Tutorials do not cover every examinable topic, so please revise the lectures as well.
