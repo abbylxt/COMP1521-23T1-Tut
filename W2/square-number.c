@@ -9,9 +9,14 @@ int main(void) {
     printf("Enter a number: ");
     scanf("%d", &x);
 
-    y = x * x;
+    y = x * x
+    // y = (x * x)/2;
+    // temp = x * x
+    // y = temp / 2
 
-    printf("%d\n", y);
+    // printf("%d\n", y);
+    printf("%d", y);
+    printf("\n");
 
     return 0;
 }
