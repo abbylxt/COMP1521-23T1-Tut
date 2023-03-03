@@ -4,10 +4,11 @@ main:
 
 
 .data
-a:  .word   42, 3
+a:  .word   4200, 3
 b:  .space  4
 c:  .asciiz "abcde"
+#   .ascii "abcde\0"
     .align  2
-d:  .byte   1, 2, 3, 4
+d:  .byte   'a', '2', 3, 4
 e:  .word   1, 2, 3, 4
 f:  .space  1
