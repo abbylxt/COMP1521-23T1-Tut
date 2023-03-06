@@ -9,10 +9,16 @@ int main(void) {
     int numbers[N_SIZE] = {0};
 
     i = 0;
-    while (i < N_SIZE) {
-        scanf("%d", &numbers[i]);
-        i++;
-    }
+
+scan_loop:
+    if (i >= N_SIZE) goto scan_loop_end;
+
+    scanf("%d", &numbers[i]);
+    i++;
+
+    goto scan_loop;
+
+scan_loop_end:
 
     i = 0;
     while (i < N_SIZE) {

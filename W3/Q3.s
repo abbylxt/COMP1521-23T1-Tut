@@ -1,19 +1,19 @@
+# writing our own data segment
 
 main:
 
-
 .data
 
-u:	.space 4
+u:	.space 4	# int u;
 
-v:	.word 42
+v:	.word 42	# int v = 42;
 
-w:	.space 1
+w:	.space 1	# char w;
 	.align 3
 
-x:	.byte 'a'
+x:	.byte 'a'	# char x = 'a';
 	.align 3
 
-y:	.space 8
+y:	.space 8	# double y;
 
-z:	.space 20 * 4
+z:	.space 4 * 20	# int z[20]
