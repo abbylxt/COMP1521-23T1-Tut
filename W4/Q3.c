@@ -3,6 +3,9 @@
 // 
 // array:  Array to search
 // length: Number of elements in the array
+
+#include <stdio.h>
+
 int max(int array[], int length) {
     // 
     int first_element = array[0];
