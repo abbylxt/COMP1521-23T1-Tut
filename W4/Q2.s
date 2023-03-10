@@ -1,60 +1,59 @@
 # &flag[0][0] = &flag
-# &flag[0][5] = &flag + 5
+# &flag[0][7] = &flag + 7
 # &flag[1][0] = &flag + 12
-# &flag[1][5] = &flag + 12 + 5
-# &flag[r][c] = &flag + (r * max_col) * 4 + c * 4
-# in the case of int array
-# &flag[r][c] = &flag + ((r * max_col) + c) * sizeof(element)
+# &flag[1][0] = &flag + 12 * 1 + 7
+# &flag[row][col] = &flag + ((max_col * row) + col) * size_of_element
+# &flag[row][col] = &flag + (max_col * 4) * row + col * 4
 
 .data
-flag: 
+flag:	.byte '#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'
 	.byte '#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'
-	.byte '#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'
-	.byte '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'
+    	.byte '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'
     	.byte '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'
     	.byte '#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'
-    	.byte '#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'
+	.byte '#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'
+
 
 .text
-
+# CONSTANTS
 FLAG_ROWS = 6
 FLAG_COLS = 12
 
 main:
+main_prologue:
+
+main_body:
 
 	# $t0 = row
-	li	$t0, 0			# int row = 0
-loop_row:
-	bge	$t0, FLAG_ROWS, loop_row_end
+	li	$t0, 0
+main_body_loop:
+	bge	$t0, FLAG_ROWS, main_body_loop_end
 
 	# $t1 = col
-	li	$t1, 0			# int col = 0
-loop_col:
-	bge	$t1, FLAG_COLS, loop_col_end
+	li	$t1, 0
+main_body_loop1:
+	bge	$t1, FLAG_COLS, main_body_loop1_end
 
-	# &flag[r][c] = &flag + ((r * max_col) + c) * 1
-	la	$t2, flag		# printf("%c", flag[row][col]);
-	mul	$t3, $t0, FLAG_COLS
-	add	$t3, $t3, $t1
-	mul	$t3, $t3, 1
-	add	$t3, $t3, $t2
+	# &flag[row][col] = &flag + ((max_col * row) + col) * 1
+	la	$t2, flag			# $t2 = &flag
+	mul	$t3, FLAG_COLS, $t0		# $t3 = (max_col * row)
+	add	$t3, $t3, $t1			# $t3 = (max_col * row) + col
+	add	$t3, $t2, $t3			# #t3 = &flag + (max_col * row) + col) = &flag[row][col]
 	lb	$a0, ($t3)
 	li	$v0, 11
 	syscall
 
 	addi	$t1, $t1, 1
-
-	b	loop_col
-
-loop_col_end:
+	b	main_body_loop1
+main_body_loop1_end:
 	li	$a0, '\n'
 	li	$v0, 11
 	syscall
 
-	addi	$t0, $t0, 1
+	addi	$t0, $t0, 1				# row++
+	b	main_body_loop
+main_body_loop_end:
 
-	b	loop_row
+main_epilogue:
 
-loop_row_end:
-
-	jr	$ra
+	jr	$ra		# return 

@@ -12,9 +12,8 @@
 #define FLAG_ROWS 6
 #define FLAG_COLS 12
 
-char flag[rows]
-
-char row[char]
+// row flag[rows]
+// char row[elements]
 
 char flag[FLAG_ROWS][FLAG_COLS] = {
     {'#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'},
