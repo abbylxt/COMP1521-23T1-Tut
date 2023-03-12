@@ -5,33 +5,34 @@ max:
 max_prologue:
 
 	push	$ra
-	push	$s0		# $s0_Stack = ????, 1
+	push	$s0		
 max_body:
 	# $s0 = first_element = 2
-	lw	$s0, ($a0)
+	lw	$s0, ($a0)			# int first_element = array[0]
 
 max_body_if:
 	bne	$a1, 1, max_body_else
 
-	move	$v0, $s0
+	move	$v0, $s0			# return first_element;
 	b	max_epilogue
 max_body_else:
-	addi	$a0, $a0, 4		# $a0 = &array + 4 = &array[1]
-	addi	$a1, $a1, -1
-	jal	max
+	addi	$a0, $a0, 4			# $a0 = &array + 4 = &array[1]
+	addi	$a1, $a1, -1			# $a1 = length - 1
+	jal	max				# max(&aray[1], length - 1)
 
 	# $t1 = max_so_far
-	move	$t1, $v0 
+	move	$t1, $v0 			# int max_so_far = max(&array[1], length - 1)
+
 max_body_if_1:
 	ble	$s0, $t1, max_body_if_1_end
-	move	$t1, $s0
+	move	$t1, $s0			# max_so_far = first_element;
 max_body_if_1_end:
-	move	$v0, $t1
+	move	$v0, $t1			# return max_so_far;
 	b	max_epilogue
 max_body_else_end:
 
 max_epilogue:
-	pop	$s0		# $s0 = 1
+	pop	$s0				
 	pop	$ra
 	jr	$ra
 
@@ -42,17 +43,17 @@ main_prologue:
 	begin
 	push	$ra
 main_body:
-	la	$a0, array
+	la	$a0, array		
 	# move	$t0, $a0
 	li	$a1, 6
-	jal	max
+	jal	max			# max(array, 6);
 	move	$t0, $v0		# int max_value = max(array, 6);
 
-	move	$a0, $t0		# printf("%d\n", max_value);
+	move	$a0, $t0		# printf("%d", max_value);
 	li	$v0, 1
 	syscall
 
-	li	$a0, '\n'
+	li	$a0, '\n'		# printf("\n");
 	li	$v0, 11
 	syscall
 
